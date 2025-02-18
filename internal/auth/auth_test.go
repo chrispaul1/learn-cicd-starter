@@ -13,7 +13,7 @@ func TestGetAPI(t *testing.T) {
 		input          string
 		expectedOutput string
 	}{
-		{"valid api key", "ApiKey XX-56-Y7", "XX-56-Y8"},
+		{"valid api key", "ApiKey XX-56-Y7", "XX-56-Y7"},
 		{"Empty Header", "", ""},
 		{"Invalid Header Format", "InvalidInput", ""},
 	}
