@@ -16,6 +16,8 @@ jobs:
         steps:
           - name: Check out code
             uses: actions/checkout@v4
+            with:
+              fetch-depth: 2  # Fetches the current commit and the one before it
   
           - name: Set up Go
             uses: actions/setup-go@v5
@@ -39,9 +41,14 @@ jobs:
           - name: Use gcloud CLI
             run: gcloud info
 
-          - name: Review migration diffs
-            run: git diff HEAD~1 migrations/
-            
+          - name: Review migrations diffs
+            run: |
+                if [ -d "migrations/" ]; then
+                  git diff HEAD~1 migrations/
+                else
+                  echo "No migrations directory found. Skipping migration diff."
+                fi
+
           - name: Run the migrations
             run: ./scripts/migrateup.sh
 
